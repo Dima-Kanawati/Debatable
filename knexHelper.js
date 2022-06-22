@@ -1,4 +1,4 @@
 const environment = "development";
 const config = require('./knexfile')[environment];
 
-modul.exports= require('knex')(config);
+module.exports= require('knex')(config);

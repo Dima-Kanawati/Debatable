@@ -3,11 +3,11 @@
  * @returns { Promise<void> }
  */
 exports.up = async function (knex) {
-    await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp');
+    await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
 
     return knex.schema
         .createTable('debates', function (table) {
-            table.uuid('id').primary().notNullable().defaultTo(knex.raw('uuid generated_v1()'));
+            table.uuid('id').primary().notNullable().defaultTo(knex.raw('uuid_generate_v1()'));
 
             table.string('title').notNullable().unique();
 
