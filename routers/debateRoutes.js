@@ -12,4 +12,16 @@ const Router = require('express').Router();
 
 Router.post('/', debateService.addDebate);
 
+/**
+ * Update Debate Router.
+ */
+Router.put('/debate/:debateId', debateService.updateDebate);
+
+/**
+ * Delete Debate Router.
+ */
+Router.delete('/debate/:debateId', debateService.deleteDebate);
+
+
+
 module.exports = Router;

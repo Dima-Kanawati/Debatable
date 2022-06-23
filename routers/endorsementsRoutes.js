@@ -10,6 +10,6 @@ const Router = require('express').Router();
  * Add endorsements Router.
  */
 
-Router.post('/', endorsementsService.addEndorsement);
+Router.post('/:debateId/endorsemenets', endorsementsService.addEndorsement);
 
 module.exports = Router;

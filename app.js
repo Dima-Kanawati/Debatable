@@ -9,7 +9,7 @@ app.use(bodyParser.json())
 
 app.use('/debates', require('./routers/debateRoutes'));
 
-app.use('/debates/endorsements', require('./routers/endorsementsRoutes'));
+app.use('/debates/debate/', require('./routers/endorsementsRoutes'));
 
 //Listen on the port.
 app.listen(3001, () => {
