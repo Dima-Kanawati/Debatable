@@ -3,8 +3,8 @@
  * Dima Kanawati, 2022
  */
 
-const { RowDescriptionMessage } = require('pg-protocol/dist/messages');
 const debatesRepo = require('../repositories/debatesRepository');
+const { parseOrderBy } = require('../helpers/helpers');
 
 const addDebate = async function (req, res) {
     //Get the data from the body.
@@ -52,8 +52,46 @@ const deleteDebate = async function (req, res) {
     }
 }
 
+const getDebates = async function (req, res) {
+    //Get the offset and limit for pagination.
+    let { offset, limit, searchTerm, orderBy } = req.query;
+
+    //If offset is not provided, default value for it is = 0;
+    offset = offset ?? 0;
+    limit = limit ?? 10;
+
+    if (limit > 100) {
+        limit = 100;
+    }
+
+    try {
+        const debates = await debatesRepo.getDebates(offset, limit, searchTerm, orderBy);
+        await res.status(200).send(debates);
+    }
+    catch (err) {
+        console.log(err);
+        await res.status(400).send(err);
+    }
+}
+
+const parseOrderByForDebates = async function (req, res, next) {
+    //Get orderBy, if it was sent by the user.
+    const { orderBy } = req.query;
+    if (!orderBy) {
+        req.query.orderBy = [{
+            column: 'created_at', order: 'desc'
+        }]
+    }
+    else {
+        req.query.orderBy = parseOrderBy(req.query.orderBy);
+    }
+    return next();
+}
+
 module.exports = {
     addDebate,
     updateDebate,
-    deleteDebate
+    deleteDebate,
+    getDebates,
+    parseOrderByForDebates
 }

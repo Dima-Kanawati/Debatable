@@ -22,6 +22,9 @@ Router.put('/debate/:debateId', debateService.updateDebate);
  */
 Router.delete('/debate/:debateId', debateService.deleteDebate);
 
-
+/**
+ * Get debate Router.
+ */
+Router.get('/', debateService.parseOrderByForDebates, debateService.getDebates);
 
 module.exports = Router;
