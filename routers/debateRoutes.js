@@ -4,23 +4,24 @@
  */
 
 const debateService = require('../services/debateService');
+const { isAuthenticated, isInRole } = require('../services/usersService');
 const Router = require('express').Router();
 
 /**
  * Add Debate Router.
  */
 
-Router.post('/', debateService.addDebate);
+Router.post('/', isAuthenticated, isInRole(['user']), debateService.addDebate);
 
 /**
  * Update Debate Router.
  */
-Router.put('/debate/:debateId', debateService.updateDebate);
+Router.put('/debate/:debateId', isAuthenticated, debateService.updateDebate);
 
 /**
  * Delete Debate Router.
  */
-Router.delete('/debate/:debateId', debateService.deleteDebate);
+Router.delete('/debate/:debateId', isAuthenticated, debateService.deleteDebate);
 
 /**
  * Get debate Router.

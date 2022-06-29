@@ -4,12 +4,13 @@
  */
 
 const endorsementsService = require('../services/endorsementsService');
+const { isAuthenticated } = require('../services/usersService');
 const Router = require('express').Router();
 
 /**
  * Add endorsements Router.
  */
 
-Router.post('/:debateId/endorsemenets', endorsementsService.addEndorsement);
+Router.post('/:debateId/endorsemenets', isAuthenticated, endorsementsService.addEndorsement);
 
 module.exports = Router;

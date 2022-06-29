@@ -8,7 +8,8 @@ const { parseOrderBy } = require('../helpers/helpers');
 
 const addDebate = async function (req, res) {
     //Get the data from the body.
-    const data = req.body;
+    let data = req.body;
+    data.user_id = req.user.id;
 
     try {
         //Try to add the debate to the database.
